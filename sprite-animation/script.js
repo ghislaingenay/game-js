@@ -27,12 +27,9 @@ const spriteHeight = 5230 / 10;
 const playerImage = new Image();
 playerImage.src = "shadow_dog.png";
 
-// let frameX = 0; // x position of the sprite in the sprite sheet
-// let frameY = 0; // y position of the sprite in the sprite sheet
-
 let gameFrame = 0;
 
-const staggerFrames = 5; // how many frames to skip before showing the next frame
+const staggerFrames = 20; // how many frames to skip before showing the next frame
 
 const spriteAnimations = new Map();
 
