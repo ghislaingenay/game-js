@@ -20,7 +20,7 @@ const bgLayer5 = new Image();
 bgLayer5.src = "layer-5.png";
 /** @type {HTMLImageElement[]} */
 
-let gameSpeed = 25;
+let gameSpeed = 5;
 
 const layers = [
   new BackgroundLayer(bgLayer1, 0.2, gameSpeed),
@@ -29,6 +29,18 @@ const layers = [
   new BackgroundLayer(bgLayer4, 0.8, gameSpeed),
   new BackgroundLayer(bgLayer5, 1, gameSpeed),
 ];
+
+const slider = document.getElementById("slider");
+slider.value = gameSpeed;
+const showGameSpeed = document.getElementById("showGameSpeed");
+showGameSpeed.textContent = ` ${gameSpeed}`;
+slider.addEventListener("input", (e) => {
+  gameSpeed = e.target.value;
+  layers.forEach((layer) => {
+    showGameSpeed.textContent = ` ${gameSpeed}`;
+    layer.update(gameSpeed);
+  });
+});
 
 function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);

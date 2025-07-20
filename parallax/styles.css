@@ -5,9 +5,38 @@ body {
 #canvas1 {
   position: absolute;
   top: 50%;
-  border: 3px solid white;
   left: 50%;
   width: 800px;
   height: 700px;
   transform: translate(-50%, -50%);
+}
+
+#container {
+  position: absolute;
+  width: 800px;
+  height: 700px;
+  font-size: 0.75rem;
+  z-index: 30;
+  top: 50%;
+
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#container div {
+  display: flex;
+  padding-left: 2rem;
+  position: relative;
+  gap: 1rem;
+}
+
+#slider {
+  /* position: absolute; */
+  top: 10px;
+  left: 10px;
+  width: 200px;
+}
+
+h1 {
+  color: black;
 }
