@@ -1,3 +1,5 @@
+import BackgroundLayer from "./background_color.js";
+
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById("canvas1");
 /** @type {CanvasRenderingContext2D} */
@@ -18,19 +20,22 @@ const bgLayer5 = new Image();
 bgLayer5.src = "layer-5.png";
 /** @type {HTMLImageElement[]} */
 
-let x = 0;
-let x2 = 2400; // second identical image starts at 2400px
 let gameSpeed = 25;
+
+const layers = [
+  new BackgroundLayer(bgLayer1, 0.2, gameSpeed),
+  new BackgroundLayer(bgLayer2, 0.4, gameSpeed),
+  new BackgroundLayer(bgLayer3, 0.6, gameSpeed),
+  new BackgroundLayer(bgLayer4, 0.8, gameSpeed),
+  new BackgroundLayer(bgLayer5, 1, gameSpeed),
+];
 
 function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  ctx.drawImage(bgLayer4, x, 0);
-  ctx.drawImage(bgLayer4, x2, 0);
-  if (x < -2400) x = 2400 + x2 - gameSpeed;
-  else x -= gameSpeed;
-  if (x2 < -2400) x2 = 2400 + x - gameSpeed;
-  else x2 -= gameSpeed;
-
+  layers.forEach((layer) => {
+    layer.update(gameSpeed);
+    layer.draw(ctx);
+  });
   requestAnimationFrame(animate);
 }
 
