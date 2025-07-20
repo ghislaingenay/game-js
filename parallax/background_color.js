@@ -17,7 +17,7 @@ export default class BackgroundLayer {
     this.y = 0;
     this.width = 2400;
     this.height = 700;
-    this.x2 = this.width;
+    // this.x2 = this.width;
     this.image = image;
     this.speedModifier = speedModifier;
     this.speed = this.speedModifier * gameSpeed;
@@ -26,11 +26,11 @@ export default class BackgroundLayer {
   update(gameSpeed) {
     this.speed = this.speedModifier * gameSpeed;
     const isFirstImgMoveOffScreen = this.x <= -this.width;
-    if (isFirstImgMoveOffScreen) this.x = this.width + this.x2 - gameSpeed; // reposition first image
-    const isSecondImgMoveOffScreen = this.x2 <= -this.width;
-    if (isSecondImgMoveOffScreen) this.x2 = this.width + this.x - gameSpeed; // reposition second image
+    if (isFirstImgMoveOffScreen) this.x = 0; // reposition first image
+    // const isSecondImgMoveOffScreen = this.x2 <= -this.width;
+    // if (isSecondImgMoveOffScreen) this.x2 = this.width + this.x - gameSpeed; // reposition second image
     this.x = Math.floor(this.x - this.speed); // Update the position of x by subtracting its speed, making it scroll left.
-    this.x2 = Math.floor(this.x2 - this.speed); // Update the position of x2 similarly.
+    // this.x2 = Math.floor(this.x2 - this.speed); // Update the position of x2 similarly.
   }
 
   /** Draw the background layer on the canvas
@@ -38,6 +38,12 @@ export default class BackgroundLayer {
    */
   draw(ctx) {
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
+    ctx.drawImage(
+      this.image,
+      this.x + this.width,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 }
