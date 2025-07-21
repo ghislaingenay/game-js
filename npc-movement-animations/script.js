@@ -4,17 +4,39 @@ const canvas = document.getElementById("canvas1");
 /** @type {CanvasRenderingContext2D} */
 const ctx = canvas.getContext("2d");
 
+const numberOfEnemies = 100;
+let gameFrame = 0;
+
 const CANVAS_WIDTH = (canvas.width = 500);
 const CANVAS_HEIGHT = (canvas.height = 1000);
 
-const enemy1 = new Enemy(0, 0, 200, 200);
+const enemyImage = new Image();
+enemyImage.src = "enemy1.png";
+
+const enemy1 = new Enemy(
+  Math.random() * CANVAS_WIDTH,
+  Math.random() * CANVAS_HEIGHT,
+  100,
+  100
+);
+
+const enemies = [];
+Array.from({ length: numberOfEnemies }).forEach(() => {
+  const x = Math.random() * CANVAS_WIDTH;
+  const y = Math.random() * CANVAS_HEIGHT;
+
+  enemies.push(new Enemy(x, y));
+});
 
 function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   // Draw each layer
-  enemy1.update();
-  enemy1.draw(ctx);
+  enemies.forEach((enemy) => {
+    enemy.update(gameFrame);
+    enemy.draw(ctx);
+  });
 
+  gameFrame++;
   requestAnimationFrame(animate);
 }
 
