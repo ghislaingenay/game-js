@@ -1,31 +1,21 @@
-import Enemy from "./enemy.js";
+import { SoulEaterEnemy } from "./enemy.js";
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById("canvas1");
 /** @type {CanvasRenderingContext2D} */
 const ctx = canvas.getContext("2d");
 
-const numberOfEnemies = 100;
+const numberOfEnemies = 30;
 let gameFrame = 0;
 
 const CANVAS_WIDTH = (canvas.width = 500);
 const CANVAS_HEIGHT = (canvas.height = 1000);
-
-const enemyImage = new Image();
-enemyImage.src = "enemy1.png";
-
-const enemy1 = new Enemy(
-  Math.random() * CANVAS_WIDTH,
-  Math.random() * CANVAS_HEIGHT,
-  100,
-  100
-);
 
 const enemies = [];
 Array.from({ length: numberOfEnemies }).forEach(() => {
   const x = Math.random() * CANVAS_WIDTH;
   const y = Math.random() * CANVAS_HEIGHT;
 
-  enemies.push(new Enemy(x, y));
+  enemies.push(new SoulEaterEnemy(x, y));
 });
 
 function animate() {
