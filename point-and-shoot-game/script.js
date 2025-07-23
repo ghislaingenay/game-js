@@ -8,18 +8,32 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let ravens = [];
+let timeToNextRaven = 0;
+let ravenInterval = 500; // 1 second interval for spawning ravens
+let lastTime = 0;
 
-const raven = new Raven(canvas.width, canvas.height);
+let ravens = [];
 
 function animate(timestamp) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let deltaTime = timestamp - lastTime; // time between 2 frames => depends on computer performance
+  lastTime = timestamp;
+  timeToNextRaven += deltaTime;
+  // console.log("dt:", deltaTime, "ms");
+  if (timeToNextRaven > ravenInterval) {
+    ravens.push(new Raven(canvas.width, canvas.height));
+    timeToNextRaven = 0;
+  }
 
-  raven.update();
-  raven.draw(ctx);
+  [...ravens].forEach((raven, index) => {
+    raven.update();
+    raven.draw(ctx);
+    // Remove raven if it goes off the left edge
+  });
+  ravens = ravens.filter((raven) => !raven.markForDeletion);
 
   requestAnimationFrame(animate);
 }
 
-const timestamp = 1000;
+const timestamp = 0;
 animate(timestamp);
