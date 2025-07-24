@@ -1,5 +1,6 @@
 import Raven from "./raven.js";
 import Explosion from "./explosion.js";
+import Particle from "./particle.js";
 
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById("gameCanvas");
@@ -26,6 +27,7 @@ let gameOver = false;
 
 let ravens = [];
 let explosions = [];
+let particles = [];
 
 function drawScore(ctx) {
   ctx.font = "30px Arial";
@@ -73,13 +75,19 @@ function animate(timestamp) {
     ravens.sort((a, b) => a.width - b.width);
   }
   drawScore(ctx);
-  [...ravens, ...explosions].forEach((object, index) => {
-    object.update(deltaTime);
+  [...ravens, ...explosions, ...particles].forEach((object, index) => {
+    const particle = object.update(deltaTime);
+    if (particle && particle instanceof Particle) {
+      console.log("Particle created:", particle);
+      particles.push(particle);
+    }
     object.draw(ctx, collisionCtx);
 
     // Remove raven if it goes off the left edge
   });
   ravens = ravens.filter((raven) => !raven.markForDeletion);
+  explosions = explosions.filter((explosion) => !explosion.markForDeletion);
+  particles = particles.filter((particle) => !particle.markForDeletion);
 
   requestAnimationFrame(animate);
 }

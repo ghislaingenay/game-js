@@ -1,3 +1,5 @@
+import Particle from "./particle.js";
+
 export default class Raven {
   constructor(canvasWidth, canvasHeight) {
     this.spriteWidth = 271;
@@ -80,6 +82,8 @@ export default class Raven {
     if (this.timeSinceFlap > this.flapInterval) {
       this.updateFrame();
       this.timeSinceFlap = 0;
+      const particle = new Particle(this.x, this.y, this.width, this.color);
+      return particle; // Return the particle instance
     }
 
     // if (this.x < 0 - this.width) {
