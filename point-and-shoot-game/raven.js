@@ -82,10 +82,10 @@ export default class Raven {
       this.timeSinceFlap = 0;
     }
 
-    if (this.x < 0 - this.width) {
-      this.x = this.canvasWidth + this.width; // Reset position when going off the left edge
-      this.y = Math.random() * (this.canvasHeight - this.height); // Randomize vertical position
-    }
+    // if (this.x < 0 - this.width) {
+    //   this.x = this.canvasWidth + this.width; // Reset position when going off the left edge
+    //   this.y = Math.random() * (this.canvasHeight - this.height); // Randomize vertical position
+    // }
 
     // Reset raven when it goes off the left edge
     // if (this.x < -this.width) {
